@@ -1,0 +1,84 @@
+body {
+  width:900px;
+  margin:auto;
+  font: 14px Verdana,Tahoma,arial,sans-serif;
+}
+
+h1{
+  font-size: 200%;
+  margin: 0.5em 0;
+  padding: 0.2em;
+}
+
+b, th{
+  font-weight: bold;
+}
+
+p{
+  padding: 1em;
+}
+
+.clearer{
+  clear: both;
+}
+
+.w100{
+  width: 100%;
+}
+
+table.top_aligned td{
+  vertical-align: top;
+}
+
+#page{
+  margin: 20px 0;
+  background: white;
+  padding: 1px; /* fix double-margin-bug */
+}
+
+.flash_notice{
+  background: #A7D101; /* for non-css3 browsers */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#AFC326', endColorstr='#C7F121'); /* for IE */
+  background: -moz-linear-gradient(top,  #A7D101,  #AFC326);
+  background: -webkit-gradient(linear, left top, left bottom, from(#A7D101), to(#C7F121));
+}
+
+.flash_error{
+  background: #cd5c5c;
+}
+
+#content{
+  min-height: 500px;
+}
+
+.field_with_errors input{
+  background: #f08080;
+}
+
+.shadow {
+  -moz-box-shadow: 0px 0px 20px #000;
+  -webkit-box-shadow: 0px 0px 20px #000;
+  box-shadow: 0px 0px 20px #000;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=20, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=20, Direction=135, Color='#000000');
+}
+
+.full_form{
+  font-size: 150%;
+}
+
+.full_form label{
+  margin-top: 1em;
+  display: block;
+}
+
+.full_form input{
+  font-size:inherit;
+}
+
+.full_form input[type=submit]{
+  margin-top: 1em;
+}

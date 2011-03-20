@@ -1,0 +1,6 @@
+<h1>New Bucket</h1>
+
+<% form_for @bucket, :html => {:class => "full_form"}  do |f| %>
+  <%= render 'form', :f => f %>
+  <%= submit_tag 'Add Bucket' %>
+<% end %>
