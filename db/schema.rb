@@ -10,12 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110320172942) do
+ActiveRecord::Schema.define(:version => 20110320214120) do
 
   create_table "buckets", :force => true do |t|
     t.string   "name"
     t.string   "access_key_id"
     t.string   "secret_access_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "s3_files", :force => true do |t|
+    t.string   "key",           :null => false
+    t.string   "folder"
+    t.datetime "last_modified", :null => false
+    t.integer  "bucket_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
