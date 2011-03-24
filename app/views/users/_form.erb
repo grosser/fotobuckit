@@ -11,6 +11,8 @@
 
 <% unless f.object.new_record? %>
   <%= fields_for :bucket do |bf| %>
+    <%= bf.error_messages %>
+    
     <label>AccessKeyId</label>
     <%= bf.text_field :access_key_id %><br/>
 

@@ -1,5 +1,9 @@
 class Bucket < ActiveRecord::Base
+  validates :access_key_id, :length => 20..20
+  validates :secret_access_key, :length => 40..40
+
   has_many :s3_files, :dependent => :destroy
+  has_one :user
 
   def to_param
     name
