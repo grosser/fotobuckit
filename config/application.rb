@@ -8,7 +8,7 @@ require 'digest/md5'
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 cfg = 'config/config.yml'
-CFG = File.exist?(cfg) ? File.load_file(cfg) : ENV
+CFG = File.exist?(cfg) ? YAML.load_file(cfg) : ENV
 
 module Fotobuckit
   class Application < Rails::Application

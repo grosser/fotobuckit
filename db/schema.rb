@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110320214120) do
+ActiveRecord::Schema.define(:version => 20110324194819) do
 
   create_table "buckets", :force => true do |t|
     t.string   "name"
@@ -28,5 +28,17 @@ ActiveRecord::Schema.define(:version => 20110320214120) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "username",   :null => false
+    t.string   "email",      :null => false
+    t.string   "password",   :null => false
+    t.integer  "bucket_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

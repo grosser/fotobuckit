@@ -1,1 +1,6 @@
-Startpage
+<h1>Welcome stranger!</h1>
+
+<% form_for User.new, :html => {:class => "full_form"}  do |f| %>
+  <%= render 'users/form', :f => f %>
+  <%= submit_tag 'Signup for alpha' %>
+<% end %>
