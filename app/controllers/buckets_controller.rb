@@ -1,4 +1,5 @@
 class BucketsController < ApplicationController
+  before_filter :login_required
   before_filter :find_bucket, :only => [:show, :edit, :update, :destroy]
 
   def new
@@ -6,7 +7,7 @@ class BucketsController < ApplicationController
   end
 
   def create
-    @bucket = Bucket.create!(params[:bucket])
+    @bucket = Bucket.create!(params[:bucket].merge(:user => current_user))
     redirect_to @bucket
   end
 

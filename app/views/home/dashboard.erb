@@ -1,1 +1,14 @@
-Your Dashboard
+<h1>Your Dashboard</h1>
+
+<%= link_to 'Edit settings', '/account' %>
+
+<% if current_user.bucket %>
+  <%= link_to 'my bucket', current_user.bucket %>
+<% else %>
+  <h2>Add your s3 credentials to get started</h2>
+
+  <% form_for Bucket.new, :html => {:class => "full_form"}  do |f| %>
+    <%= render 'buckets/form', :f => f %>
+    <%= submit_tag 'Get started' %>
+  <% end %>
+<% end %>

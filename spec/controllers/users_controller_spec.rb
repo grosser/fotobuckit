@@ -52,12 +52,5 @@ describe UsersController do
       }.should_not change{user.reload.email}
       response.should render_template('edit')
     end
-
-    it "saves for bucket" do
-      user.bucket.try(:destroy)
-      lambda{
-        put :update, :id => 'xxx', :user => {:bucket => Factory.attributes_for(:bucket)}
-      }.should change{user.reload.bucket}
-    end
   end
 end

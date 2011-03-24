@@ -8,15 +8,3 @@
 
 <label>Password</label>
 <%= f.password_field :password %><br/>
-
-<% unless f.object.new_record? %>
-  <%= fields_for :bucket do |bf| %>
-    <%= bf.error_messages %>
-    
-    <label>AccessKeyId</label>
-    <%= bf.text_field :access_key_id %><br/>
-
-    <label>SecretAccessKey</label>
-    <%= bf.text_field :secret_access_key %><br/>
-  <% end %>
-<% end %>

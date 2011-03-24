@@ -4,6 +4,4 @@ class User < ActiveRecord::Base
   validates :password, :length => 6..100
 
   belongs_to :bucket
-
-  accepts_nested_attributes_for :bucket
 end
