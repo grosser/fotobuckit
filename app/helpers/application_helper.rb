@@ -6,7 +6,7 @@ module ApplicationHelper
   def resized_image_url(url, size)
     account = CGI.escape('Michael Grosser')
     width, height = size.split('x',2)
-    api_key = 'a65fe903338d83e3594e1211ef272cc4'
+    api_key = CFG['PIXELCLOUD_API_KEY']
     url = "http://pixelcloud.duostack.net/crop/#{CGI.escape(url)}?width=#{width}&height=#{height}&account=#{account}"
     hash = Digest::MD5.hexdigest(url + api_key)
     url + "&hash=#{hash}"
