@@ -10,34 +10,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324194819) do
-
-  create_table "buckets", :force => true do |t|
-    t.string   "name"
-    t.string   "access_key_id"
-    t.string   "secret_access_key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20110325203743) do
 
   create_table "s3_files", :force => true do |t|
     t.string   "key",           :null => false
     t.string   "folder"
     t.datetime "last_modified", :null => false
-    t.integer  "bucket_id",     :null => false
+    t.integer  "user_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username",   :null => false
-    t.string   "email",      :null => false
-    t.string   "password",   :null => false
+    t.string   "username",          :null => false
+    t.string   "email",             :null => false
+    t.string   "password",          :null => false
     t.integer  "bucket_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bucket"
+    t.string   "access_key_id"
+    t.string   "secret_access_key"
   end
 
+  add_index "users", ["bucket"], :name => "index_users_on_bucket", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 

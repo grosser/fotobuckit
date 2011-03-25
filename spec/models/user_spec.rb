@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-describe Bucket do
+describe User do
   describe :create_files do
     before do
       S3File.delete_all
@@ -11,17 +9,17 @@ describe Bucket do
       ]
     end
 
-    let(:bucket){Factory(:bucket)}
+    let(:user){Factory(:user)}
 
     it "creates files from response hash" do
-      bucket.s3.should_receive(:list_bucket).twice.and_return @list_bucket_response
+      user.s3.should_receive(:list_bucket).twice.and_return @list_bucket_response
 
       lambda{
-        bucket.sync_files
+        uer.sync_files
       }.should change{S3File.count}.by(+2)
 
       lambda{
-        bucket.sync_files
+        user.sync_files
       }.should_not change{S3File.count}
     end
   end
