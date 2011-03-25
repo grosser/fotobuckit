@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe User do
   describe :create_files do
     before do
@@ -15,12 +17,25 @@ describe User do
       user.s3.should_receive(:list_bucket).twice.and_return @list_bucket_response
 
       lambda{
-        uer.sync_files
+        user.sync_files
       }.should change{S3File.count}.by(+2)
 
       lambda{
         user.sync_files
       }.should_not change{S3File.count}
+    end
+
+    it "creates new jobs" do
+      user.s3.should_receive(:list_bucket).twice.and_return @list_bucket_response
+
+      lambda{
+        user.sync_files
+      }.should change{Job.count}.by(+1)
+      Job.last.folder.should == 'TestFolder'
+
+      lambda{
+        user.sync_files
+      }.should_not change{Job.count}
     end
   end
 end

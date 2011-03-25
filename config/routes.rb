@@ -18,7 +18,7 @@ Fotobuckit::Application.routes.draw do
   match 'signup' => 'users#new'
   match 'account' => 'users#edit'
 
-  resources :buckets
+  resources :jobs
   resources :users
   resources :sessions
 

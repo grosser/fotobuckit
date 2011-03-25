@@ -1,5 +1,6 @@
 class S3File < ActiveRecord::Base
   belongs_to :user
+  belongs_to :job
 
   def url
     user.s3.get_link(user.bucket, key) + "&i=#{last_modified.to_i}"

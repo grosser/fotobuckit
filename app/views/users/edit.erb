@@ -4,11 +4,3 @@
   <%= render 'form', :f => f %>
   <%= submit_tag 'Save' %>
 <% end %>
-
-<h1>Edit your bucket</h1>
-<% if current_user.bucket %>
-  <% form_for current_user.bucket, :html => {:class => "full_form"}  do |f| %>
-    <%= render 'buckets/form', :f => f %>
-    <%= submit_tag 'Save' %>
-  <% end %>
-<% end %>

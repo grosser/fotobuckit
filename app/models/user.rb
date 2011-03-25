@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :secret_access_key, :length => 40..40, :allow_blank => true
 
   has_many :s3_files, :dependent => :destroy
+  has_many :jobs, :dependent => :destroy
 
   def self.authorize(name, password)
     user = find_by_username(name) || find_by_email(name)
@@ -14,14 +15,23 @@ class User < ActiveRecord::Base
   end
 
   def sync_files
+    return if bucket.blank?
+
     s3_files.delete_all
+
     keys.each do |data|
       key = data[:key]
       next unless key =~ /\.(je?pg|gif|tiff|bmp|raw)$/i
+
+      folder = File.dirname(key)
+      job = jobs.detect{|job| job.folder == folder }
+      job ||= jobs.create!(:folder => folder, :title => folder)
+
       s3_files.create!(
         :key => key,
-        :folder => File.dirname(key),
-        :last_modified => Time.parse(data[:last_modified])
+        :folder => folder,
+        :last_modified => Time.parse(data[:last_modified]),
+        :job => job
       )
     end
   end
