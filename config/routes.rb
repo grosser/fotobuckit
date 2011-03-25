@@ -13,11 +13,14 @@ Fotobuckit::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
+  match 'login' => 'sessions#new'
+  match 'logout' => 'sessions#destroy'
   match 'signup' => 'users#new'
   match 'account' => 'users#edit'
 
   resources :buckets
   resources :users
+  resources :sessions
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

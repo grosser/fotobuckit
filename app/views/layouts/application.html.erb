@@ -7,7 +7,26 @@
 </head>
 <body>
 
-<%= yield %>
+<% if current_user %>
+  Hello <%= current_user.username %>!
+  <%= link_to 'Logout', '/logout' %>
+<% else %>
+  <%= link_to 'Pricing and Signup', '/signup' %>
+  <%= link_to 'Login', '/login' %>
+<% end %>
+
+<% flash.each do |key, text| %>
+  <div class="flash_<%= key %> box">
+    <%= text %>
+  </div>
+<% end %>
+
+<div id="content">
+  <%= yield %>
+</div>
+
+<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js' %>
+<%= javascript_include_tag 'rails', 'application' %>
 
 </body>
 </html>

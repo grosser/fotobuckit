@@ -4,4 +4,9 @@ class User < ActiveRecord::Base
   validates :password, :length => 6..100
 
   belongs_to :bucket
+
+  def self.authorize(name, password)
+    user = find_by_username(name) || find_by_email(name)
+    user if user and user.password == password
+  end
 end

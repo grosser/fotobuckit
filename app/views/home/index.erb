@@ -1,6 +1,11 @@
 <h1>Welcome stranger!</h1>
 
-<% form_for User.new, :html => {:class => "full_form"}  do |f| %>
+<% form_for User.new, :html => {:class => "full_form left"}  do |f| %>
   <%= render 'users/form', :f => f %>
   <%= submit_tag 'Signup for alpha' %>
+<% end %>
+
+<% form_tag '/sessions' , :class => "full_form left"  do |f| %>
+  <%= render 'sessions/form', :f => f %>
+  <%= submit_tag 'Login' %>
 <% end %>

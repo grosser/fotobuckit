@@ -30,6 +30,9 @@ table.top_aligned td{
   vertical-align: top;
 }
 
+.left{float:left;}
+.right{float:right;}
+
 #page{
   margin: 20px 0;
   background: white;
@@ -50,6 +53,16 @@ table.top_aligned td{
 
 #content{
   min-height: 500px;
+}
+
+#login_form {
+  width: 10em;
+}
+
+#content{
+  margin: 0 auto;
+  padding: 0 15px;
+  width: 920px;
 }
 
 .field_with_errors input{
