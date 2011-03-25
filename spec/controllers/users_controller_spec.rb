@@ -4,6 +4,7 @@ describe UsersController do
   describe :new do
     it "renders" do
       get :new
+      assigns[:user].should_not == nil
       response.should render_template(:new)
     end
   end
