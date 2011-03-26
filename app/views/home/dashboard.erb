@@ -1,8 +1,7 @@
 <h1>Your Dashboard</h1>
 
-<%= link_to 'Edit settings', '/account' %>
-
 <% if current_user.bucket.present? %>
+  <h2>Jobs</h2>
   <table class="w100">
     <% current_user.jobs.each do |job| %>
       <tr>
@@ -14,15 +13,7 @@
   <h2>Add your s3 credentials to get started</h2>
 
   <% form_for current_user, :html => {:class => "full_form"}  do |f| %>
-    <label>AccessKeyId</label>
-    <%= f.text_field :access_key_id %><br/>
-
-    <label>SecretAccessKey</label>
-    <%= f.password_field :secret_access_key %><br/>
-
-    <label>Bucket-name</label>
-    <%= f.text_field :bucket %><br/>
-
+    <%= render 'users/bucket_fields', :f => f %>
     <%= submit_tag 'Get started' %>
   <% end %>
 <% end %>
