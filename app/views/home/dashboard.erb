@@ -3,9 +3,12 @@
 <% if current_user.bucket.present? %>
   <h2>Jobs</h2>
   <table class="w100">
-    <% current_user.jobs.each do |job| %>
+    <% current_user.jobs.order('id desc').each do |job| %>
       <tr>
         <td><%= link_to job.title, job %></td>
+        <td>for <%= job.customer %></td>
+        <td><%= truncate(job.description, :to => 100) %></td>
+        <td><%= l job.created_at, :format => :short %></td>
       </tr>
     <% end %>
   </table>
