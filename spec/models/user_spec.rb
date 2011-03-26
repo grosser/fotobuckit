@@ -38,4 +38,39 @@ describe User do
       }.should_not change{Job.count}
     end
   end
+
+  describe :hashed_password do
+    it "sets password on create" do
+      user = Factory.build(:user, :salt => nil, :hashed_password => nil)
+      user.password = 'foobar'
+      user.password_confirmation = 'foobar'
+      user.save!
+      user.salt.should_not == nil
+      user.hashed_password.should_not == nil
+      User.authorize(user.username, 'foobar').should == user
+    end
+
+    it "does not change password on save" do
+      user = Factory(:user)
+      lambda{
+        user.save!
+      }.should_not change{user.reload.hashed_password}
+    end
+
+    it "can set new password" do
+      user = Factory(:user)
+      user.update_attributes!(:password => 'barfoo', :password_confirmation => 'barfoo')
+      User.authorize(user.username, 'barfoo').should == user
+    end
+
+    it "cannot set typo" do
+      user = Factory(:user)
+      user.update_attributes(:password => 'barfoo', :password_confirmation => 'barfoo2').should == false
+    end
+
+    it "can save without password" do
+      user = Factory(:user)
+      user.update_attributes!(:username => 'xxxxx').should == true
+    end
+  end
 end

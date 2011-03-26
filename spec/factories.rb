@@ -5,6 +5,8 @@ Factory.define(:user) do |f|
   f.bucket{ "test-bucket-#{rand(999999)}" }
   f.access_key_id 'a' * 20
   f.secret_access_key 'a' * 40
+  f.salt 'a' * 40
+  f.hashed_password 'a' * 40
 end
 
 Factory.define(:job) do |f|
