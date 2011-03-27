@@ -1,8 +1,12 @@
 class JobsController < ApplicationController
   before_filter :login_required
-  before_filter :find_job
+  before_filter :find_job, :only => [:show, :update]
 
   def show
+  end
+
+  def iframe
+    render :text => "CONTENT FOR #{params.except(:action, :controller).to_query}"
   end
 
   def update

@@ -6,4 +6,8 @@ class HomeController < ApplicationController
       render 'index'
     end
   end
+
+  def iframe_content
+    render :layout => false
+  end
 end

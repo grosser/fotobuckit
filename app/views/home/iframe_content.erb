@@ -1,0 +1,9 @@
+<div id="iframe_container"></div>
+
+<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js' %>
+<script>
+  jQuery.noConflict(true)(function($){
+    var url = '<%= iframe_jobs_url %>?' + window.location.search.substring(1)
+    $('#iframe_container').html('<iframe src="'+url+'" width="980" height="100%" />')
+  });
+</script>

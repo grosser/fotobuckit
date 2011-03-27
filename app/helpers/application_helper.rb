@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def force_escape(x)
+    '' << x
+  end
+
   def image_for(file, size)
     image_tag resized_image_url(file.url, size), :title => file.title
   end
