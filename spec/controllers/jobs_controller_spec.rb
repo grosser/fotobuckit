@@ -34,4 +34,20 @@ describe JobsController do
       response.should render_template('show')
     end
   end
+
+  describe :access do
+    before do
+      login_as job.user
+    end
+
+    it "generated an access code" do
+      get :access, :id => job.id, :customer => 'Fred', :period => 1.day.to_i.to_s
+      UrlStore.decode(response.body).should == {'id' => job.id, 'customer' => 'Fred', 'until' => 1.day.from_now.to_i}
+    end
+
+    it "generated an unlimited access code" do
+      get :access, :id => job.id, :customer => 'Fred', :period => '0'
+      UrlStore.decode(response.body).should == {'id' => job.id, 'customer' => 'Fred'}
+    end
+  end
 end

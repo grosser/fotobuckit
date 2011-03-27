@@ -1,0 +1,14 @@
+<%= form_tag access_job_path(@job), :method => :get, :remote => true, :id => 'access_form' do %>
+  Access for customer <%= text_field_tag :customer, '', :size => 8 %> (used for tracking)
+  valid for <%= select_options_tag :period, [['forever',0], ['1 day',1.day], ['1 week',1.week], ['1 month', 1.month]] %>
+  <%= submit_tag 'Create Access' %>
+<% end %>
+<div id="access_url"></div>
+
+<script>
+  later(function(){
+    $("#access_form").bind("ajax:success", function(event, data) {
+      $("#access_url").html(data);
+    });
+  })
+</script>

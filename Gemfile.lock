@@ -86,6 +86,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.25)
+    url_store (0.3.0)
 
 PLATFORMS
   ruby
@@ -97,3 +98,4 @@ DEPENDENCIES
   right_aws
   rspec-rails (~> 2.5)
   sqlite3
+  url_store

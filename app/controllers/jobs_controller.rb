@@ -5,6 +5,16 @@ class JobsController < ApplicationController
   def show
   end
 
+  def access
+    code = {
+      'id' => params[:id],
+      'customer' => params[:customer]
+    }
+    period = params[:period].to_i
+    code['until'] = Time.current.to_i + period.to_i unless period == 0
+    render :text => UrlStore.encode(code)
+  end
+
   def iframe
     render :text => "CONTENT FOR #{params.except(:action, :controller).to_query}"
   end

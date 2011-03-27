@@ -22,6 +22,9 @@ Fotobuckit::Application.routes.draw do
     collection do
       get :iframe
     end
+    member do
+      get :access
+    end
   end
   resources :users
   resources :sessions

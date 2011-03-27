@@ -15,4 +15,8 @@ module ApplicationHelper
     hash = Digest::MD5.hexdigest(url + api_key)
     url + "&hash=#{hash}"
   end
+
+  def select_options_tag(name, list, options={})
+    select_tag name, options_for_select(list), options
+  end
 end
