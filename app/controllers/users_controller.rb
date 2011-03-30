@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 
   def update
     if current_user.update_attributes(params[:user])
-      current_user.sync_files
       redirect_to '/', :notice => 'Saved!'
     else
       render 'edit'

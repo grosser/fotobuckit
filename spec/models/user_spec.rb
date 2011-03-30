@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe User do
-  describe :create_files do
+  before do
+    User.delete_all
+  end
+
+  describe :sync_files do
     before do
       S3File.delete_all
       @list_bucket_response = [
@@ -12,6 +16,18 @@ describe User do
     end
 
     let(:user){Factory(:user)}
+
+    it "is not called after unimportant updates" do
+      user = Factory(:user)
+      user.should_not_receive(:sync_files)
+      user.update_attributes(:username => 'asdasd')
+    end
+
+    it "is called after important changes" do
+      user = Factory(:user)
+      user.should_receive(:sync_files)
+      user.update_attributes(:access_key_id => 'b'*20)
+    end
 
     it "creates files from response hash" do
       user.s3.should_receive(:list_bucket).twice.and_return @list_bucket_response

@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
   has_many :s3_files, :dependent => :destroy
   has_many :jobs, :dependent => :destroy
 
-  def sync_files
-    return if bucket.blank?
+  after_update :sync_files, :if => :s3_credentials_changed?
 
+  def sync_files
     s3_files.delete_all
 
     keys.each do |data|
@@ -38,5 +38,11 @@ class User < ActiveRecord::Base
 
   def s3
     @s3 ||= RightAws::S3Interface.new(access_key_id, secret_access_key)
+  end
+
+  private
+
+  def s3_credentials_changed?
+    bucket_changed? or access_key_id_changed? or secret_access_key_changed?
   end
 end

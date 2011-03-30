@@ -1,11 +1,19 @@
-<h1>Your Dashboard</h1>
+<h1><%= current_user.username %>`s Dashboard</h1>
 
 <% if current_user.bucket.present? %>
   <h2>Jobs</h2>
   <table class="w100">
+    <tr>
+      <th>Title</th>
+      <th>Pictures</th>
+      <th>Customer</th>
+      <th>Description</th>
+      <th>Created</th>
+    </tr>
     <% current_user.jobs.order('id desc').each do |job| %>
       <tr>
         <td><%= link_to job.title, job %></td>
+        <td><%= job.s3_files.count %></td>
         <td>for <%= job.customer %></td>
         <td><%= truncate(job.description, :to => 100) %></td>
         <td><%= l job.created_at, :format => :short %></td>
