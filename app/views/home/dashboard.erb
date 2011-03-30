@@ -1,6 +1,6 @@
 <h1><%= current_user.username %>`s Dashboard</h1>
 
-<% if current_user.bucket.present? %>
+<% if current_user.credentials_filled? %>
   <h2>Jobs</h2>
   <table class="w100">
     <tr>

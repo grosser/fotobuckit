@@ -24,6 +24,7 @@
 <% if current_user %>
   Hello <%= current_user.username %>!
   <%= link_to 'Settings', '/account' %>
+  <%= link_to 'Resync', '/users/sync', :title => 'Resync existing jobs and creates jobs from new folders' if current_user.credentials_filled? %>
   <%= link_to 'Logout', '/logout' %>
 <% else %>
   <%= link_to 'Pricing and Signup', '/signup' %>

@@ -54,4 +54,18 @@ describe UsersController do
       response.should render_template('edit')
     end
   end
+
+  describe :sync do
+    let(:user){Factory(:user)}
+    before do
+      login_as user
+    end
+
+    it "syncs the users files" do
+      referrer '/xxx'
+      user.should_receive(:sync_files)
+      get :sync
+      response.should redirect_to('/xxx')
+    end
+  end
 end

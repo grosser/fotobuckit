@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 
   after_update :sync_files, :if => :s3_credentials_changed?
 
+  def credentials_filled?
+    bucket.present? and access_key_id.present? and secret_access_key.present?
+  end
+
   def sync_files
     s3_files.delete_all
 

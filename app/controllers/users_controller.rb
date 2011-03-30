@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login_required, :only => :update
+  before_filter :login_required, :only => [:update, :sync]
 
   def new
     @user = User.new
@@ -21,5 +21,10 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def sync
+    current_user.sync_files
+    redirect_back_or_default '/', :notice => 'Its done!'
   end
 end

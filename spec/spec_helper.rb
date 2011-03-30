@@ -6,4 +6,8 @@ RSpec.configure do
   def login_as(user)
     controller.stub!(:current_user).and_return user
   end
+
+  def referrer(url)
+    @request.env['HTTP_REFERER'] = url
+  end
 end

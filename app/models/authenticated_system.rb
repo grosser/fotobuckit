@@ -15,4 +15,8 @@ module AuthenticatedSystem
   def login_required
     redirect_to '/', :error => 'You need to log in!' unless current_user
   end
+
+  def redirect_back_or_default(x, options={})
+    redirect_to (request.headers["Referer"] ? :back : x), options
+  end
 end

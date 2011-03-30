@@ -26,7 +26,11 @@ Fotobuckit::Application.routes.draw do
       get :access
     end
   end
-  resources :users
+  resources :users do
+    collection do
+      get :sync
+    end
+  end
   resources :sessions
 
   match "home(/:action/(:id))", :controller => :home
