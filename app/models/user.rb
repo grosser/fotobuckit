@@ -16,7 +16,12 @@ class User < ActiveRecord::Base
     bucket.present? and access_key_id.present? and secret_access_key.present?
   end
 
+  def sync_expired?
+    not synced_at or synced_at < 30.seconds.ago
+  end
+
   def sync_files
+    update_attribute(:synced_at, Time.current)
     s3_files.delete_all
 
     keys.each do |data|

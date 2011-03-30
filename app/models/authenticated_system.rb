@@ -13,7 +13,7 @@ module AuthenticatedSystem
   end
 
   def login_required
-    redirect_to '/', :error => 'You need to log in!' unless current_user
+    redirect_to '/', :alert => 'You need to log in!' unless current_user
   end
 
   def redirect_back_or_default(x, options={})

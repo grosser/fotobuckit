@@ -63,8 +63,17 @@ describe UsersController do
 
     it "syncs the users files" do
       referrer '/xxx'
-      user.should_receive(:sync_files)
+      user.should_receive(:keys).once.and_return []
       get :sync
+      response.should redirect_to('/xxx')
+    end
+
+    it "does not sync if users has synced shortly before" do
+      referrer '/xxx'
+      user.should_receive(:keys).once.and_return []
+      get :sync
+      get :sync
+      flash[:alert].should_not == nil
       response.should redirect_to('/xxx')
     end
   end

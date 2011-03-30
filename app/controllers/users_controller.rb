@@ -24,7 +24,11 @@ class UsersController < ApplicationController
   end
 
   def sync
-    current_user.sync_files
-    redirect_back_or_default '/', :notice => 'Its done!'
+    if current_user.sync_expired?
+      current_user.sync_files
+      redirect_back_or_default '/', :notice => 'Its done!'
+    else
+      redirect_back_or_default '/', :alert => 'Please wait a bit!'
+    end
   end
 end
