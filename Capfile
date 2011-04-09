@@ -1,6 +1,15 @@
 load 'deploy'
 require 'bundler/capistrano'
 
+def ec2_address(input='get')
+  file = 'deploy/server'
+  if input == 'get'
+    (File.read(file) rescue 'NO-SERVER').strip
+  else
+    File.open(file,'w'){|f|f.write(input)}
+  end
+end
+
 set :application, "fototransporter"
 set :user, "ubuntu"
 set :deploy_to, "/home/#{user}/#{application}"
@@ -14,7 +23,7 @@ set :rails_env, "production"
 
 # deploy to ec2
 ssh_options[:keys] = "~/.ssh/ec2/mg-ec2.pem"
-server "ec2-46-137-35-168.eu-west-1.compute.amazonaws.com", :app, :web, :db, :primary => true
+server ec2_address, :app, :web, :db, :primary => true
 
 namespace :deploy do
   task(:start){}
@@ -33,6 +42,31 @@ end
 after 'deploy', 'deploy:cleanup'
 
 namespace :env do
+  namespace :server do
+    task :start do
+      server = fog.servers.create(
+        :image_id => 'ami-311f2b45',
+        :flavor_id => 't1.micro',
+        :key_name => 'mg-ec2'
+      )
+
+      # wait for it to get online
+      server.wait_for { print "."; ready? }
+
+      puts "server started at #{server.dns_name}"
+      ec2_address(server.dns_name)
+    end
+
+    task :stop do
+      if server = fog.servers.detect{|s| s.dns_name == ec2_address }
+        server.destroy
+        ec2_address(nil)
+      else
+        puts "No server is running"
+      end
+    end
+  end
+
   task :setup do
     run "sudo apt-get update"
     run "sudo apt-get install git-core sqlite3 libsqlite3-dev build-essential libcurl4-openssl-dev libssl-dev zlib1g-dev libreadline5-dev -y"
@@ -80,4 +114,12 @@ def sudo_put(data, target)
   put data, tmp
   on_rollback { run "rm #{tmp}" }
   sudo "cp -f #{tmp} #{target} && rm #{tmp}"
+end
+
+def fog
+  require 'fog'
+  @fog ||= Fog::Compute.new(
+    :provider => 'AWS',
+    :region=>'eu-west-1'
+  )
 end
