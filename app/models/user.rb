@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def sync_files
-    update_attribute(:synced_at, Time.current)
+    update_attribute_without_callbacks(:synced_at, Time.now)
     s3_files.delete_all
 
     current_jobs = jobs.all
