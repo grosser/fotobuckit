@@ -24,13 +24,18 @@ class User < ActiveRecord::Base
     update_attribute(:synced_at, Time.current)
     s3_files.delete_all
 
+    current_jobs = jobs.all
+
     keys.each do |data|
       key = data[:key]
       next unless key =~ /\.(je?pg|gif|tiff|bmp|raw)$/i
 
       folder = File.dirname(key)
-      job = jobs.detect{|job| job.folder == folder }
-      job ||= jobs.create!(:folder => folder, :title => folder)
+
+      unless job = current_jobs.detect{|job| job.folder == folder }
+        job = jobs.create!(:folder => folder, :title => folder)
+        current_jobs << job
+      end
 
       s3_files.create!(
         :key => key,
