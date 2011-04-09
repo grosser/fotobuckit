@@ -21,9 +21,10 @@ set :runner, "#{user}"
 set :scm, :git
 set :repository, "git://github.com/grosser/fotobuckit.git"
 set :rails_env, "production"
+set :key_pair, "mg-ec2"
 
 # deploy to ec2
-ssh_options[:keys] = "~/.ssh/ec2/mg-ec2.pem"
+ssh_options[:keys] = "~/.ssh/ec2/#{key_pair}.pem"
 server ec2_address, :app, :web, :db, :primary => true
 
 namespace :deploy do
@@ -46,9 +47,9 @@ namespace :env do
   namespace :server do
     task :start do
       server = fog.servers.create(
-        :image_id => 'ami-311f2b45',
+        :image_id => 'ami-311f2b45', # ubuntu 10.04
         :flavor_id => 't1.micro',
-        :key_name => 'mg-ec2'
+        :key_name => key_pair
       )
 
       # wait for it to get online
