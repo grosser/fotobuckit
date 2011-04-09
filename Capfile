@@ -1,3 +1,4 @@
+# This Capfile and deploy/* is used for ec2 deployments
 load 'deploy'
 require 'bundler/capistrano'
 
