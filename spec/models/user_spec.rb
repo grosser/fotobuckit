@@ -24,9 +24,15 @@ describe User do
     end
 
     it "is called after important changes" do
-      user = Factory(:user)
       user.should_receive(:sync_files)
       user.update_attributes(:access_key_id => 'b'*20)
+    end
+
+    it "works in after callbacks" do
+      user.s3.should_receive(:list_bucket).and_return @list_bucket_response
+      lambda{
+        user.update_attributes(:access_key_id => 'b'*20)
+      }.should change{S3File.count}.by(+2)
     end
 
     it "creates files from response hash" do
