@@ -12,7 +12,7 @@ class ImageController < ActionController::Base
     raise "convert error" unless system cmd
 
     expires_in 2.years, :public => true if params[:t]
-    send_file cache, :type => mime_type, :disposition => 'inline'
+    send_file cache, :type => mime_type, :disposition => 'inline', :stream => false
   end
 
   private
