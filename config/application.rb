@@ -8,8 +8,7 @@ require 'digest/sha2'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-cfg = 'config/config.yml'
-CFG = File.exist?(cfg) ? YAML.load_file(cfg) : ENV
+require File.expand_path('../../lib/cfg', __FILE__)
 
 module Fotobuckit
   class Application < Rails::Application
@@ -42,7 +41,7 @@ module Fotobuckit
     config.filter_parameters += [:password]
 
     config.after_initialize do
-      UrlStore.defaults = {:secret => Fotobuckit::Application.config.secret_token}
+      UrlStore.defaults = {:secret => CFG[:secret_token]}
     end
   end
 end

@@ -1,1 +1,1 @@
-Fotobuckit::Application.config.secret_token = CFG['SECRET_TOKEN']
+Fotobuckit::Application.config.secret_token = CFG[:secret_token]

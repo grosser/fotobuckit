@@ -1,0 +1,11 @@
+common: &common
+  secret_token: not-so-secret-12312312312314141241231231423432423442324
+
+test:
+  <<: *common
+
+development:
+  <<: *common
+
+production:
+  <<: *common
