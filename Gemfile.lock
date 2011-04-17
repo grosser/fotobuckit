@@ -94,6 +94,7 @@ PLATFORMS
 DEPENDENCIES
   factory_girl_rails
   fakeweb
+  mail
   rails (= 3.0.5)
   right_aws
   rspec-rails (~> 2.5)

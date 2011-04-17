@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       self.current_user = @user
+      UserMailer.registration_confirmation(@user).deliver
       redirect_to '/', :notice => 'Welcome on board!'
     else
       render 'new'

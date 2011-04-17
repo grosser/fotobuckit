@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.5'
+gem 'mail'
 gem 'sqlite3'
 gem 'right_aws'
 gem 'url_store'
