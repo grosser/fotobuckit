@@ -7,6 +7,7 @@ gem 'right_aws'
 gem 'url_store'
 
 group :test do
+  gem 'parallel'
   gem 'fakeweb'
   gem 'rspec-rails', '~>2.5'
   gem 'factory_girl_rails'
