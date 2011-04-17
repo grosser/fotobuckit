@@ -17,7 +17,7 @@ Fotobuckit::Application.routes.draw do
   match 'logout' => 'sessions#destroy'
   match 'signup' => 'users#new'
   match 'account' => 'users#edit'
-  match 'image/resize' => 'image#resize'
+  match 'image/resize/:data' => 'image#resize'
 
   resources :jobs do
     collection do
