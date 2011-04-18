@@ -12,6 +12,7 @@ class ImageController < ActionController::Base
 
     expires_in 2.years, :public => true
     send_data File.read(cache), :type => mime_type, :disposition => 'inline'
+    `rm #{cache}`
   end
 
   private
