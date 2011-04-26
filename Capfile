@@ -55,8 +55,10 @@ namespace :env do
       # wait for it to get online
       server.wait_for { print "."; ready? }
 
-      puts "server started at #{server.dns_name}"
-      ec2_address(server.dns_name)
+      address = server.dns_name
+      puts "server started at #{address}"
+      puts "connect via ssh -i #{ssh_options[:keys]} ubuntu@#{address}"
+      ec2_address(address)
     end
 
     task :stop do
