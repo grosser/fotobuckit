@@ -50,4 +50,24 @@ describe JobsController do
       UrlStore.decode(response.body).should == {'id' => job.id, 'customer' => 'Fred'}
     end
   end
+
+  describe :iframe do
+    let(:job){ Factory(:job) }
+
+    it "cannot be accessed normally" do
+      get :iframe, :id => job.id
+      response.body.should == "ACCESS DENIED"
+    end
+
+    it "cannot be accessed via login" do
+      login_as job.user
+      get :iframe, :id => job.id
+      response.body.should == "ACCESS DENIED"
+    end
+
+    it "can be accessed via iframe access" do
+      get :iframe, :id => job.id, :access => job.user.iframe_access
+      response.body.should_not == "ACCESS DENIED"
+    end
+  end
 end

@@ -54,6 +54,14 @@ class User < ActiveRecord::Base
     @s3 ||= RightAws::S3Interface.new(access_key_id, secret_access_key)
   end
 
+  def jobs?
+    jobs.present?
+  end
+
+  def iframe_access
+    UrlStore.encode("#{id}-iframe_access")
+  end
+
   private
 
   def s3_credentials_changed?

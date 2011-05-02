@@ -1,0 +1,19 @@
+<head>
+  <title>Fotobuckit</title>
+  <%= stylesheet_link_tag :all %>
+  <%= csrf_meta_tag %>
+  <script>
+    later = function(){
+      var stack = [], i_ran=0;
+      return function(execute_later){
+       if(typeof(execute_later)=='undefined'){
+         i_ran=1;
+         for(var i=0;i<stack.length;i++)stack[i].call();//execute them all
+       } else {
+         if(i_ran)execute_later.call()//page is loaded already, just execute
+         else stack.push(execute_later)//page not finished, store
+       }
+     };
+    }()
+  </script>
+</head>
