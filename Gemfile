@@ -12,3 +12,7 @@ group :test do
   gem 'rspec-rails', '~>2.5'
   gem 'factory_girl_rails'
 end
+
+group :production do
+  gem 'mysql'
+end
