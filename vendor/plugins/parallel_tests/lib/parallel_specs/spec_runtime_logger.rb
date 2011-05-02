@@ -15,11 +15,16 @@ class ParallelSpecs::SpecRuntimeLogger < ParallelSpecs::SpecRuntimeLoggerBase
 
     if String === output
       FileUtils.mkdir_p(File.dirname(output))
-      File.open(output,'w'){|f| f.write ''} # clean the file
-      @output = File.open(output, 'a+') #append so that multiple processes can write at once
+      File.open(output, 'w'){} # overwrite previous results
+      @output = File.open(output, 'a')
+      puts 'string'
+    elsif File === output
+      output.close # close file opened with 'w'
+      @output = File.open(output.path, 'a')
     else
       @output = output
     end
+
     @example_times = Hash.new(0)
     @failed_examples = [] # only needed for rspec 2
   end
@@ -45,6 +50,9 @@ class ParallelSpecs::SpecRuntimeLogger < ParallelSpecs::SpecRuntimeLoggerBase
   # stubs so that rspec doe not crash
 
   def example_pending(*args)
+  end
+
+  def example_failed(*args)
   end
 
   def dump_summary(*args)
