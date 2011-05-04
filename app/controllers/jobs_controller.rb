@@ -6,13 +6,13 @@ class JobsController < ApplicationController
   end
 
   def access
-    code = {
-      'id' => params[:id],
-      'customer' => params[:customer]
-    }
-    period = params[:period].to_i
-    code['until'] = Time.current.to_i + period.to_i unless period == 0
-    render :text => UrlStore.encode(code)
+    access = Access.create!(
+      :user => current_user,
+      :job_id => params[:id],
+      :name => params[:customer],
+      :period => params[:period].to_i
+    )
+    render :json => access.token
   end
 
   def iframe

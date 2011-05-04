@@ -7,8 +7,8 @@
 
 <script>
   later(function(){
-    $("#access_form").bind("ajax:success", function(event, data) {
-      $("#access_url").html(data);
+    $("#access_form").bind("ajax:complete", function(event, response) {
+      $("#access_url").html(response.responseText);
     });
   })
 </script>

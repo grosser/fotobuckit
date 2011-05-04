@@ -10,7 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110330200423) do
+ActiveRecord::Schema.define(:version => 20110503060141) do
+
+  create_table "accesses", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "job_id"
+    t.string   "token",      :null => false
+    t.string   "name",       :null => false
+    t.datetime "valid_to"
+    t.datetime "valid_from"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accesses", ["token"], :name => "index_accesses_on_token", :unique => true
+  add_index "accesses", ["user_id", "name"], :name => "index_accesses_on_user_id_and_name", :unique => true
 
   create_table "jobs", :force => true do |t|
     t.integer  "user_id",     :null => false

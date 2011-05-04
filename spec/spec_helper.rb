@@ -10,4 +10,9 @@ RSpec.configure do
   def referrer(url)
     @request.env['HTTP_REFERER'] = url
   end
+
+  def stop_time
+    time = Time.now
+    Time.stub!(:now).and_return time
+  end
 end
