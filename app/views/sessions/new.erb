@@ -1,5 +1,5 @@
 <div id="login_form">
-  <% form_tag '/sessions' , :class => "full_form left"  do |f| %>
+  <%= form_tag '/sessions' , :class => "full_form left"  do |f| %>
     <%= render 'sessions/form', :f => f %>
     <%= submit_tag 'Login' %>
   <% end %>

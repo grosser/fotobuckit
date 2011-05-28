@@ -6,7 +6,7 @@ gallery.html
 </pre>
 
 <% if current_user.jobs? %>
-  <% form_tag '/home/iframe_content', :method => :get do %>
+  <%= form_tag '/home/iframe_content', :method => :get do %>
     <%= hidden_field_tag :access, current_user.iframe_access %>
     <%= select_options_tag :id, current_user.jobs.map{|j| [j.title, j.id] } %>
     <%= submit_tag 'Preview' %>
