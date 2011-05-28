@@ -29,7 +29,7 @@ Fotobuckit::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_assets = true # duostack needs this
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -46,4 +46,6 @@ Fotobuckit::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  config.plugins = `ls vendor/plugins`.split("\n")  - ['rails3_serve_static_assets'] # disable not-working rails3_serve_static_assets on duostack
 end
