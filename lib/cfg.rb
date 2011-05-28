@@ -1,10 +1,16 @@
 require 'active_support/core_ext/hash/indifferent_access'
 
 env = defined?(Rails.env) ? Rails.env : (ENV['RAILS_ENV'] || 'development')
+dotcloud_config = '/home/dotcloud/environment.json'
+normal_config = 'config/config.yml'
+
 config = if encoded = ENV['CONFIG_YML']
   require 'base64'
-  Base64.decode64(encoded)
+  Yaml.load Base64.decode64(encoded)
+elsif File.exist? dotcloud_config
+  JSON.load File.read dotcloud_config
 else
-  File.read('config/config.yml')
+  YAML.load File.read normal_config
 end
-CFG = YAML.load(config)[env].with_indifferent_access.freeze
+
+CFG = config[env].with_indifferent_access.freeze

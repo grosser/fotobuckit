@@ -1,0 +1,8 @@
+# dotcloud deploy -t ruby -c '{"ruby-version": "1.9.2"}' fototransporter.www
+www:
+  exclude_bundler_groups:
+    - development
+    - test
+  environment:
+    domain: "www.fototransporter.dotcloud.com"
+    secret_token: very-secret-token
