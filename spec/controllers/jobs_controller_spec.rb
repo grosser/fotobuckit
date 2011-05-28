@@ -43,14 +43,17 @@ describe JobsController do
     it "generated an access code" do
       stop_time
       get :access, :id => job.id, :customer => 'Fred', :period => 1.day.to_i.to_s
-      access = Access.find_by_token(response.body)
+
+      access = Access.last
+      access.token.should == response.body
       access.name.should == 'Fred'
       access.valid_to.should == 1.day.from_now
     end
 
     it "generated an unlimited access code" do
       get :access, :id => job.id, :customer => 'Fred', :period => '0'
-      access = Access.find_by_token(response.body)
+      access = Access.last
+      access.token.should == response.body
       access.unlimited?.should == true
     end
   end
