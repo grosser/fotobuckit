@@ -1,0 +1,4 @@
+www:
+  exclude_bundler_groups:
+    - development
+    - test

@@ -1,7 +1,7 @@
 require 'active_support/core_ext/hash/indifferent_access'
 
 env = defined?(Rails.env) ? Rails.env : (ENV['RAILS_ENV'] || 'development')
-dotcloud_config = '/home/dotcloud/environment.json'
+dotcloud_config = '/home/dotcloud/vars.json' # must be generated manually ... temp fix
 normal_config = 'config/config.yml'
 
 config = if encoded = ENV['CONFIG_YML']
