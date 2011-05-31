@@ -8,6 +8,7 @@ config = if encoded = ENV['CONFIG_YML']
   require 'base64'
   YAML.load Base64.decode64(encoded)
 elsif File.exist? dotcloud_config
+  require 'json'
   JSON.load File.read dotcloud_config
 else
   YAML.load File.read normal_config
