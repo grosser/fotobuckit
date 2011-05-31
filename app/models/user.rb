@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  include HashedPassword
-
+  has_secure_password
+  validates :password, :length => 6..100, :allow_blank => true
   validates :username, :uniqueness => true, :length => 4..20, :format => /^[-a-zA-Z_\d]+$/
   validates :email, :uniqueness => true, :length => 4..100, :format => /^.+@.+\..+$/
   validates :bucket, :uniqueness => true, :length => 1..200, :allow_blank => true
@@ -60,6 +60,11 @@ class User < ActiveRecord::Base
 
   def iframe_access
     UrlStore.encode("#{id}-iframe_access")
+  end
+
+  def self.authorize(name, password)
+    user = find_by_username(name) || find_by_email(name)
+    user.try(:authenticate, password)
   end
 
   private

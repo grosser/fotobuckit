@@ -61,14 +61,13 @@ describe User do
     end
   end
 
-  describe :hashed_password do
+  describe :has_secure_password do
     it "sets password on create" do
-      user = Factory.build(:user, :salt => nil, :hashed_password => nil)
+      user = Factory.build(:user, :password_digest => nil)
       user.password = 'foobar'
       user.password_confirmation = 'foobar'
       user.save!
-      user.salt.should_not == nil
-      user.hashed_password.should_not == nil
+      user.password_digest.should_not == nil
       User.authorize(user.username, 'foobar').should == user
     end
 
@@ -76,7 +75,7 @@ describe User do
       user = Factory(:user)
       lambda{
         user.save!
-      }.should_not change{user.reload.hashed_password}
+      }.should_not change{user.reload.password_digest}
     end
 
     it "can set new password" do
@@ -88,6 +87,11 @@ describe User do
     it "cannot set typo" do
       user = Factory(:user)
       user.update_attributes(:password => 'barfoo', :password_confirmation => 'barfoo2').should == false
+    end
+
+    it "cannot set too short" do
+      user = Factory(:user)
+      user.update_attributes(:password => 'bar', :password_confirmation => 'bar').should == false
     end
 
     it "can save without password" do
