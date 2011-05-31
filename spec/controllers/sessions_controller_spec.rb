@@ -26,6 +26,7 @@ describe SessionsController do
   describe :destroy do
     it "logs me out" do
       login_as user
+      session[:user_id] = user.id
       delete :destroy
       session[:user_id].should == nil
       response.should redirect_to('/')

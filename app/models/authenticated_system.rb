@@ -13,7 +13,7 @@ module AuthenticatedSystem
 
   def current_user=(user)
     @current_user = user
-    session[:user_id] = user.id if user
+    session[:user_id] = user.try(:id)
   end
 
   def login_required
