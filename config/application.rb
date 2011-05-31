@@ -38,7 +38,7 @@ module Fotobuckit
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :secret_access_key]
 
     config.action_mailer.default_url_options = { :host => CFG[:domain] }
 
