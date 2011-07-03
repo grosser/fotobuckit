@@ -53,9 +53,13 @@ def test_tests_in_groups(klass, folder, suffix)
         file
       end
 
-      @log = "#{FAKE_RAILS_ROOT}/tmp/parallel_profile.log"
-      `mkdir #{File.dirname(@log)}`
+      @log = klass.runtime_log
+      `mkdir -p #{File.dirname(@log)}`
       `rm -f #{@log}`
+    end
+
+    after :all do
+      `rm -f #{klass.runtime_log}`
     end
 
     it "groups when given an array of files" do
